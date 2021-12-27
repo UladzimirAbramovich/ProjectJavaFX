@@ -52,8 +52,7 @@ public class ReadThread implements Runnable{
             System.out.println("Ошибка при чтении файла данных");
             System.exit(0);
         }
-        System.out.printf("Поток %s завершился \n", Thread.currentThread().getName());
-
+        System.out.printf("Поток %s завершился \n", Thread.currentThread().getName();
     }
 }
 
