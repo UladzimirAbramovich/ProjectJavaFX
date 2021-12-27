@@ -53,7 +53,7 @@ public class ReadThread implements Runnable{
             System.exit(0);
 
         }
-        System.out.printf("Поток %s завершился \n", Thread.currentThread().getName();
+        System.out.printf("Поток %s завершился \n", Thread.currentThread().getName());
     }
 }
 
