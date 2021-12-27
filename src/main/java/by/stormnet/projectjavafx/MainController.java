@@ -75,6 +75,7 @@ public class MainController {
 
     private Thread readThread;
 
+
     @FXML
     private void initialize() {
 
