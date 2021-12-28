@@ -170,6 +170,13 @@ public class MainController {
         }
     }
 
+    Consumer<String> errorAlert = str -> {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка");
+        alert.setHeaderText(str);
+        alert.showAndWait();
+    };
+
     @FXML
     protected void onWriteFile() {
         if (isDateWrong(comboBoxPeriod, datePicker1, datePicker2)) {
@@ -188,11 +195,4 @@ public class MainController {
 
         }
     }
-
-    Consumer<String> errorAlert = str -> {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Ошибка");
-        alert.setHeaderText(str);
-        alert.showAndWait();
-    };
 }
