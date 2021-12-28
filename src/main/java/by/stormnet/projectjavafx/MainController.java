@@ -191,7 +191,7 @@ public class MainController {
                    .peek(System.out::println)
                    .count();
             System.out.println(count);
-     //       for (InRecord in: inRecordsList) System.out.println(in);
+            for (InRecord in: inRecordsList) System.out.println(in);
 
         }
     }
