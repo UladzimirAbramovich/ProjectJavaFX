@@ -3,13 +3,16 @@ package by.stormnet.projectjavafx;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
 
-import static by.stormnet.projectjavafx.MainController.inRecordTitle;
+import static by.stormnet.projectjavafx.MainController.recordTitle;
 import static by.stormnet.projectjavafx.MainController.inRecordsList;
 
 
@@ -17,6 +20,9 @@ public class ReadThread implements Runnable{
 
     @Override
     public void run() {
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
+
         System.out.printf("Поток %s запустился \n", Thread.currentThread().getName());
         final String reportsFolder = "C:\\ClockHouse\\in";
         String reportFileName = reportsFolder + File.separator + "ClockHouseIn" + ".xlsx";
@@ -31,18 +37,18 @@ public class ReadThread implements Runnable{
             Iterator<Row> it = sheet.iterator();
             Row row = it.next();
             Iterator<Cell> cells = row.iterator();
-            inRecordTitle.setWorker(cells.next().getStringCellValue());
-            inRecordTitle.setDate(cells.next().getStringCellValue());
-            inRecordTitle.setTime(cells.next().getStringCellValue());
-            inRecordTitle.setDepartment(cells.next().getStringCellValue());
-            inRecordTitle.setEvent(cells.next().getStringCellValue());
+            recordTitle.setWorker(cells.next().getStringCellValue());
+            recordTitle.setDate(cells.next().getStringCellValue());
+            recordTitle.setTime(cells.next().getStringCellValue());
+            recordTitle.setDepartment(cells.next().getStringCellValue());
+            recordTitle.setEvent(cells.next().getStringCellValue());
             while (it.hasNext()) {
-                InRecord inRecord = new InRecord();
+                Record<LocalDate, LocalTime> inRecord = new Record<>();
                 row=it.next();
                 cells = row.iterator();
                 inRecord.setWorker(cells.next().getStringCellValue());
-                inRecord.setDate(cells.next().getStringCellValue());
-                inRecord.setTime(cells.next().getStringCellValue());
+                inRecord.setDate(LocalDate.parse(cells.next().getStringCellValue(),dtfDate));
+                inRecord.setTime(LocalTime.parse(cells.next().getStringCellValue(),dtfTime));
                 inRecord.setDepartment(cells.next().getStringCellValue());
                 inRecord.setEvent(cells.next().getStringCellValue());
                 inRecordsList.add(inRecord);

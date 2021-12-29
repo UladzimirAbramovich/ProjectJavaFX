@@ -48,7 +48,7 @@ public class SetWorkingTimeController {
         stage.close();
     }
 
-    protected void setValueWorkingTimeController(WorkingTime <String> workingTime) {
+    protected void setValueWorkingTimeController(WorkingTime <String,String> workingTime) {
         comboBoxStartWorkingDay.setValue(workingTime.getStartWorkingDay());
         comboBoxEndWorkingDay.setValue(workingTime.getEndWorkingDay());
         comboBoxStartLunch.setValue(workingTime.getStartLunch());

@@ -1,15 +1,15 @@
 package by.stormnet.projectjavafx;
 
-public class WorkingTime <T> {
+public class WorkingTime <T,V> {
 
     private T startWorkingDay;
     private T endWorkingDay;
     private T startLunch;
     private T endLunch;
-    private T interval;
+    private V interval;
     private T hardWorkingTime;
 
-    public WorkingTime(T startWorkingDay, T endWorkingDay, T startLunch, T endLunch, T interval, T hardWorkingTime) {
+    public WorkingTime(T startWorkingDay, T endWorkingDay, T startLunch, T endLunch, V interval, T hardWorkingTime) {
         this.startWorkingDay = startWorkingDay;
         this.endWorkingDay = endWorkingDay;
         this.startLunch = startLunch;
@@ -50,11 +50,11 @@ public class WorkingTime <T> {
         this.endLunch = endLunch;
     }
 
-    public T getInterval() {
+    public V getInterval() {
         return interval;
     }
 
-    public void setInterval(T interval) {
+    public void setInterval(V interval) {
         this.interval = interval;
     }
 

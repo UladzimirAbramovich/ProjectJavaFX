@@ -1,9 +1,9 @@
 package by.stormnet.projectjavafx;
 
-public class InRecord {
+public class Record<D,T> {
     private String worker;
-    private String date;
-    private String time;
+    private D date;
+    private T time;
     private String department;
     private String event;
 
@@ -15,19 +15,19 @@ public class InRecord {
         this.worker = worker;
     }
 
-    public String getDate() {
+    public D getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(D date) {
         this.date = date;
     }
 
-    public String getTime() {
+    public T getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(T time) {
         this.time = time;
     }
 
