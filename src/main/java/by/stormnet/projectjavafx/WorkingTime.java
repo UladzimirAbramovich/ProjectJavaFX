@@ -1,6 +1,8 @@
 package by.stormnet.projectjavafx;
 
-public class WorkingTime <T,V> {
+import java.io.Serializable;
+
+public class WorkingTime <T,V> implements Serializable {
 
     private T startWorkingDay;
     private T endWorkingDay;

@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
+import static by.stormnet.projectjavafx.DataService.*;
+
 public class SetWorkingTimeController {
 
     private MainController mainController;
@@ -44,6 +46,7 @@ public class SetWorkingTimeController {
         mainController.workingTime.setInterval((String) comboBoxInterval.getValue());
         mainController.workingTime.setHardWorkingTime((String) comboBoxHardWorkingTime.getValue());
         mainController.setLabelWorkingTime();
+        writeWorkingTime(mainController.workingTime);
         Stage stage = (Stage) ButtonSaveWorkingTime.getScene().getWindow();
         stage.close();
     }

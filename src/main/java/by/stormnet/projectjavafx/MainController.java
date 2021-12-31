@@ -12,9 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import static by.stormnet.projectjavafx.DataService.*;
-
 import static javafx.stage.Modality.WINDOW_MODAL;
 
 public class MainController {
@@ -77,11 +75,13 @@ public class MainController {
 
     @FXML
     private void initialize() {
-
         readThread = new Thread(new ReadThread());
         readThread.start();
+        WorkingTime<String,String> temp = readWorkingTime();
+        if(temp != null){
+            workingTime = temp;
+        }
         setLabelWorkingTime();
-
     }
 
     protected void setLabelWorkingTime() {
