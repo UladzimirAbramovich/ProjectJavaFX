@@ -7,29 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
-import static by.stormnet.projectjavafx.DataService.isDateWrong;
-import static by.stormnet.projectjavafx.DataService.makeOutRecordsList;
+import static by.stormnet.projectjavafx.DataService.*;
+
 import static javafx.stage.Modality.WINDOW_MODAL;
 
 public class MainController {
@@ -41,7 +26,7 @@ public class MainController {
     private ComboBox<String> comboBoxDepartmentOrWorker;
 
     @FXML
-    private ComboBox<String> comboBoxDepartament;
+    private ComboBox<String> comboBoxDepartment;
 
     @FXML
     private CheckBox checkBoxAllCompany;
@@ -111,10 +96,10 @@ public class MainController {
     @FXML
     private void onComboBoxDepartmentOrWorker() {
         if (comboBoxDepartmentOrWorker.getValue().equals("В рамках структурного подразделения")) {
-            comboBoxDepartament.setDisable(false);
+            comboBoxDepartment.setDisable(false);
             comboBoxWorker.setDisable(true);
         } else {
-            comboBoxDepartament.setDisable(true);
+            comboBoxDepartment.setDisable(true);
             comboBoxWorker.setDisable(false);
         }
     }
@@ -136,15 +121,15 @@ public class MainController {
     private void onCheckBoxAllCompany() {
         if (checkBoxAllCompany.isSelected()) {
             comboBoxDepartmentOrWorker.setDisable(true);
-            comboBoxDepartament.setDisable(true);
+            comboBoxDepartment.setDisable(true);
             comboBoxWorker.setDisable(true);
         } else {
             comboBoxDepartmentOrWorker.setDisable(false);
             if (comboBoxDepartmentOrWorker.getValue().equals("В рамках структурного подразделения")) {
-                comboBoxDepartament.setDisable(false);
+                comboBoxDepartment.setDisable(false);
                 comboBoxWorker.setDisable(true);
             } else {
-                comboBoxDepartament.setDisable(true);
+                comboBoxDepartment.setDisable(true);
                 comboBoxWorker.setDisable(false);
             }
         }
@@ -171,7 +156,7 @@ public class MainController {
         stage.show();
     }
 
-    Consumer<String> errorAlert = str -> {
+    ErrorAlert error = str -> {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Ошибка");
         alert.setHeaderText(str);
@@ -181,62 +166,14 @@ public class MainController {
     @FXML
     protected void onWriteFile() {
         if (isDateWrong(comboBoxPeriod, datePicker1, datePicker2)) {
-            errorAlert.accept("\tНеправильно указана дата отчета");
+            error.alert("\tНеправильно указана дата отчета");
         } else if (readThread.isAlive()) {
-                errorAlert.accept("\tПодождите загрузки данных");
+                error.alert("\tПодождите загрузки данных");
         } else {
-            System.out.println("Начинается запись файла ...");
-            final String outReportsFolder = "C:\\ClockHouse\\out";
-            String outReportFileName = outReportsFolder + File.separator + "ClockHouseOut" + ".xlsx";
-
             List<Record<LocalDate, LocalTime>> outRecordsList = makeOutRecordsList(inRecordsList, workingTime,
-                                comboBoxType, checkBoxAllCompany, comboBoxDepartament, comboBoxWorker, comboBoxPeriod,
+                                comboBoxType, comboBoxDepartment, comboBoxWorker, comboBoxPeriod,
                                 datePicker1,datePicker2);
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet("Отчет по проходной");
-            sheet.setDefaultColumnWidth(15);
-            sheet.setColumnWidth(3,10000);
-            int rowNum = 0;
-            Row row = sheet.createRow(rowNum);
-            row.createCell(0).setCellValue(recordTitle.getWorker());
-            row.createCell(1).setCellValue(recordTitle.getDate());
-            row.createCell(2).setCellValue(recordTitle.getTime());
-            row.createCell(3).setCellValue(recordTitle.getDepartment());
-            row.createCell(4).setCellValue(recordTitle.getEvent());
-
-            XSSFCellStyle style = workbook.createCellStyle();
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-            style.setAlignment(HorizontalAlignment.CENTER);
-            XSSFFont font = workbook.createFont();
-            font.setFontName("Calibri");
-            font.setFontHeightInPoints((short) 11);
-            font.setBold(true);
-            style.setFont(font);
-            for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
-                row.getCell(i).setCellStyle(style);
-            }
-            DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
-            for (Record<LocalDate,LocalTime> outRecord : outRecordsList) {
-                row = sheet.createRow(++rowNum);
-                row.createCell(0).setCellValue(outRecord.getWorker());
-                row.createCell(1).setCellValue(dtfDate.format(outRecord.getDate()));
-                row.createCell(2).setCellValue(dtfTime.format(outRecord.getTime()));
-                row.createCell(3).setCellValue(outRecord.getDepartment());
-                row.createCell(4).setCellValue(outRecord.getEvent());
-            }
-            boolean noErrorWrite = true;
-            try (FileOutputStream out = new FileOutputStream(outReportFileName)) {
-                workbook.write(out);
-            } catch (IOException e) {
-                //e.printStackTrace();
-                noErrorWrite = false;
-            }
-            if(noErrorWrite) {
-                System.out.println("Excel файл успешно создан!");
-            } else {
-                System.out.println("Ошибка при записи Excel файла");
-            }
+            writeFile(recordTitle, outRecordsList);
         }
     }
 }

@@ -23,7 +23,7 @@ public class ReadThread implements Runnable{
         DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-        System.out.printf("Поток %s запустился \n", Thread.currentThread().getName());
+        System.out.printf("Поток %s запустился: чтение файла данных ...\n", Thread.currentThread().getName());
         final String reportsFolder = "C:\\ClockHouse\\in";
         String reportFileName = reportsFolder + File.separator + "ClockHouseIn" + ".xlsx";
         File fileIn = new File(reportFileName);

@@ -65,4 +65,16 @@ public class WorkingTime <T,V> {
     public void setHardWorkingTime(T hardWorkingTime) {
         this.hardWorkingTime = hardWorkingTime;
     }
+
+    @Override
+    public String toString() {
+        return "WorkingTime{" +
+                "startWorkingDay=" + startWorkingDay +
+                ", endWorkingDay=" + endWorkingDay +
+                ", startLunch=" + startLunch +
+                ", endLunch=" + endLunch +
+                ", interval=" + interval +
+                ", hardWorkingTime=" + hardWorkingTime +
+                '}';
+    }
 }
