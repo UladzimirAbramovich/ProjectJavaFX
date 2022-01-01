@@ -16,22 +16,22 @@ public class SetWorkingTimeController {
     }
 
     @FXML
-    private ComboBox comboBoxStartWorkingDay;
+    private ComboBox<String> comboBoxStartWorkingDay;
 
     @FXML
-    private ComboBox comboBoxEndWorkingDay;
+    private ComboBox<String> comboBoxEndWorkingDay;
 
     @FXML
-    private ComboBox comboBoxStartLunch;
+    private ComboBox<String> comboBoxStartLunch;
 
     @FXML
-    private ComboBox comboBoxEndLunch;
+    private ComboBox<String> comboBoxEndLunch;
 
     @FXML
-    private ComboBox comboBoxInterval;
+    private ComboBox<String> comboBoxInterval;
 
     @FXML
-    private ComboBox comboBoxHardWorkingTime;
+    private ComboBox<String> comboBoxHardWorkingTime;
 
     @FXML
     private Button ButtonSaveWorkingTime;
@@ -39,12 +39,12 @@ public class SetWorkingTimeController {
     @FXML
     private void onButtonSaveWorkingTime() {
 
-        mainController.workingTime.setStartWorkingDay((String) comboBoxStartWorkingDay.getValue());
-        mainController.workingTime.setEndWorkingDay((String) comboBoxEndWorkingDay.getValue());
-        mainController.workingTime.setStartLunch((String) comboBoxStartLunch.getValue());
-        mainController.workingTime.setEndLunch((String) comboBoxEndLunch.getValue());
-        mainController.workingTime.setInterval((String) comboBoxInterval.getValue());
-        mainController.workingTime.setHardWorkingTime((String) comboBoxHardWorkingTime.getValue());
+        mainController.workingTime.setStartWorkingDay(comboBoxStartWorkingDay.getValue());
+        mainController.workingTime.setEndWorkingDay(comboBoxEndWorkingDay.getValue());
+        mainController.workingTime.setStartLunch(comboBoxStartLunch.getValue());
+        mainController.workingTime.setEndLunch(comboBoxEndLunch.getValue());
+        mainController.workingTime.setInterval(comboBoxInterval.getValue());
+        mainController.workingTime.setHardWorkingTime(comboBoxHardWorkingTime.getValue());
         mainController.setLabelWorkingTime();
         writeWorkingTime(mainController.workingTime);
         Stage stage = (Stage) ButtonSaveWorkingTime.getScene().getWindow();

@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -41,7 +42,9 @@ public class DataService {
             System.out.println("Ошибка при записи Excel файла");
             return;
         }
-        String outReportFileName = outReportsFolder + File.separator + "ClockHouseOut" + ".xlsx";
+        DateTimeFormatter dtfDateTime = DateTimeFormatter.ofPattern("ddMMyy HH-mm-ss ");
+        String outReportFileName = outReportsFolder + File.separator + "ClockHouseOut " +
+                                    dtfDateTime.format(LocalDateTime.now()) + ".xlsx";
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Отчет по проходной");
         sheet.setDefaultColumnWidth(15);
@@ -91,7 +94,7 @@ public class DataService {
 
     public static List<Record<LocalDate, LocalTime>> makeOutRecordsList(List<Record<LocalDate, LocalTime>> inRecordsList,
                                                                         WorkingTime<String, String> workingTime, ComboBox<String> comboBoxType,
-                                                                        ComboBox<String> comboBoxDepartament,
+                                                                        ComboBox<String> comboBoxDepartment,
                                                                         ComboBox<String> comboBoxWorker, ComboBox<String> comboBoxPeriod,
                                                                         DatePicker datePicker1, DatePicker datePicker2) {
 
@@ -137,10 +140,10 @@ public class DataService {
                                     inRecord.getTime().isAfter(workingLocalTime.getHardWorkingTime())))
                     .collect(Collectors.toList());
         }
-        if (!comboBoxDepartament.isDisable()) {
-            System.out.println(comboBoxDepartament.getValue());
+        if (!comboBoxDepartment.isDisable()) {
+            System.out.println(comboBoxDepartment.getValue());
             checkTimeRecordsList = checkTimeRecordsList.stream()
-                    .filter(inRecord -> inRecord.getDepartment().equals(comboBoxDepartament.getValue()))
+                    .filter(inRecord -> inRecord.getDepartment().equals(comboBoxDepartment.getValue()))
                     .collect(Collectors.toList());
         }
         if (!comboBoxWorker.isDisable()) {
@@ -199,7 +202,7 @@ public class DataService {
             System.out.println("Ошибка: Недоступен файл настроек");
             return null;
         }
-        WorkingTime<String, String> workingTime = null;
+        WorkingTime<String, String> workingTime; // = null;
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(setupFileName))) {
             workingTime = (WorkingTime<String, String>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
