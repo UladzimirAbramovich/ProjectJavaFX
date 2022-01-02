@@ -164,7 +164,7 @@ public class MainController {
     };
 
     @FXML
-    protected void onWriteFile() {
+    protected void onWriteFile(Event event) {
         if (isDateWrong(comboBoxPeriod, datePicker1, datePicker2)) {
             error.alert("\tНеправильно указана дата отчета");
         } else if (readThread.isAlive()) {
@@ -174,6 +174,23 @@ public class MainController {
                                 comboBoxType, comboBoxDepartment, comboBoxWorker, comboBoxPeriod,
                                 datePicker1,datePicker2);
             writeFile(recordTitle, outRecordsList);
+
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader((ClockHouse.class.getResource("Table.fxml")));
+            try {
+                stage.setScene(new Scene(loader.load()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setTitle("Отчет по проходной");
+            stage.setResizable(false);
+            stage.setX(350);
+            stage.setY(100);
+            stage.initModality(WINDOW_MODAL);
+            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+            TableController tableController = loader.getController();
+            tableController.initData(outRecordsList);
+            stage.show();
         }
     }
 }

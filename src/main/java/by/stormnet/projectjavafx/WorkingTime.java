@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class WorkingTime <T,V> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private T startWorkingDay;
     private T endWorkingDay;
     private T startLunch;
