@@ -1,20 +1,27 @@
-package by.stormnet.projectjavafx;
+package by.stormnet.projectjavafx.controllers;
 
+import by.stormnet.projectjavafx.models.Record;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static by.stormnet.projectjavafx.controllers.MainController.outRecordsList;
+import static by.stormnet.projectjavafx.controllers.MainController.recordTitle;
+import static by.stormnet.projectjavafx.service.DataService.writeFile;
+
 public class TableController {
 
-    private ObservableList<Record<String,String>> recordObservableList = FXCollections.observableArrayList();
+    private final ObservableList<Record<String,String>> recordObservableList = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Record<String,String>> table;
@@ -28,6 +35,8 @@ public class TableController {
     private TableColumn<Record<String,String>, String> department;
     @FXML
     private TableColumn<Record<String,String>, String> event;
+    @FXML
+    private Button buttonWriteExcelFile;
 
     @FXML
     private void initialize() {
@@ -51,5 +60,11 @@ public class TableController {
             recordObservable.setEvent(outRecord.getEvent());
             recordObservableList.add(recordObservable);
         }
+    }
+    @FXML
+    private void onWriteExcelFile() {
+        writeFile(recordTitle, outRecordsList);
+        Stage stage = (Stage) buttonWriteExcelFile.getScene().getWindow();
+        stage.close();
     }
 }

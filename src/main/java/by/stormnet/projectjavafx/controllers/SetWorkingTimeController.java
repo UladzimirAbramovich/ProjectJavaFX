@@ -1,11 +1,13 @@
-package by.stormnet.projectjavafx;
+package by.stormnet.projectjavafx.controllers;
 
+import by.stormnet.projectjavafx.models.WorkingTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
-import static by.stormnet.projectjavafx.DataService.*;
+import static by.stormnet.projectjavafx.controllers.MainController.workingTime;
+import static by.stormnet.projectjavafx.service.DataService.*;
 
 public class SetWorkingTimeController {
 
@@ -17,41 +19,34 @@ public class SetWorkingTimeController {
 
     @FXML
     private ComboBox<String> comboBoxStartWorkingDay;
-
     @FXML
     private ComboBox<String> comboBoxEndWorkingDay;
-
     @FXML
     private ComboBox<String> comboBoxStartLunch;
-
     @FXML
     private ComboBox<String> comboBoxEndLunch;
-
     @FXML
     private ComboBox<String> comboBoxInterval;
-
     @FXML
     private ComboBox<String> comboBoxHardWorkingTime;
-
     @FXML
-    private Button ButtonSaveWorkingTime;
+    private Button buttonSaveWorkingTime;
 
     @FXML
     private void onButtonSaveWorkingTime() {
-
-        mainController.workingTime.setStartWorkingDay(comboBoxStartWorkingDay.getValue());
-        mainController.workingTime.setEndWorkingDay(comboBoxEndWorkingDay.getValue());
-        mainController.workingTime.setStartLunch(comboBoxStartLunch.getValue());
-        mainController.workingTime.setEndLunch(comboBoxEndLunch.getValue());
-        mainController.workingTime.setInterval(comboBoxInterval.getValue());
-        mainController.workingTime.setHardWorkingTime(comboBoxHardWorkingTime.getValue());
+        workingTime.setStartWorkingDay(comboBoxStartWorkingDay.getValue());
+        workingTime.setEndWorkingDay(comboBoxEndWorkingDay.getValue());
+        workingTime.setStartLunch(comboBoxStartLunch.getValue());
+        workingTime.setEndLunch(comboBoxEndLunch.getValue());
+        workingTime.setInterval(comboBoxInterval.getValue());
+        workingTime.setHardWorkingTime(comboBoxHardWorkingTime.getValue());
         mainController.setLabelWorkingTime();
-        writeWorkingTime(mainController.workingTime);
-        Stage stage = (Stage) ButtonSaveWorkingTime.getScene().getWindow();
+        writeWorkingTime(workingTime);
+        Stage stage = (Stage) buttonSaveWorkingTime.getScene().getWindow();
         stage.close();
     }
 
-    protected void setValueWorkingTimeController(WorkingTime <String,String> workingTime) {
+    protected void setValueWorkingTimeController(WorkingTime<String,String> workingTime) {
         comboBoxStartWorkingDay.setValue(workingTime.getStartWorkingDay());
         comboBoxEndWorkingDay.setValue(workingTime.getEndWorkingDay());
         comboBoxStartLunch.setValue(workingTime.getStartLunch());

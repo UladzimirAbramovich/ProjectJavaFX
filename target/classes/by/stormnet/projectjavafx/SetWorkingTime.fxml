@@ -11,145 +11,156 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="322.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.stormnet.projectjavafx.SetWorkingTimeController">
-  <columnConstraints>
-    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="270.0" />
-    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="479.0" minWidth="10.0" prefWidth="127.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="82.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="207.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="207.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <TextField editable="false" focusTraversable="false" text="Окончание рабочего дня :" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin></TextField>
-      <TextField editable="false" focusTraversable="false" text="Окончание обеда :" GridPane.rowIndex="3" GridPane.valignment="BASELINE">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField editable="false" focusTraversable="false" text="Контролируемый интервал времени :" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField editable="false" focusTraversable="false" text="Время переработки :" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField editable="false" focusTraversable="false" text="Начало рабочего дня :" GridPane.valignment="BASELINE">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" top="8.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField editable="false" focusTraversable="false" text="Начало обеда :" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </TextField>
-      <ComboBox fx:id="comboBoxStartWorkingDay" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.valignment="BASELINE">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="07:00" />
-                  <String fx:value="07:30" />
-                  <String fx:value="08:00" />
-                  <String fx:value="08:30" />
-                  <String fx:value="09:00" />
-                  <String fx:value="09:30" />
-                  <String fx:value="10:00" />
-              </FXCollections>
-          </items>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ComboBox>
-      <ComboBox fx:id="comboBoxEndWorkingDay" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="16:00" />
-                  <String fx:value="16:30" />
-                  <String fx:value="17:00" />
-                  <String fx:value="17:30" />
-                  <String fx:value="18:00" />
-                  <String fx:value="18:30" />
-                  <String fx:value="19:00" />
-              </FXCollections>
-          </items>
-          <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ComboBox>
-      <ComboBox fx:id="comboBoxStartLunch" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="13:00" />
-                  <String fx:value="13:30" />
-              </FXCollections>
-          </items>
-          <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ComboBox>
-      <ComboBox fx:id="comboBoxEndLunch" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BASELINE">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="14:00" />
-                  <String fx:value="14:30" />
-              </FXCollections>
-          </items>
-          <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ComboBox>
-      <ComboBox fx:id="comboBoxInterval" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="00:05" />
-                  <String fx:value="00:10" />
-                  <String fx:value="00:15" />
-                  <String fx:value="00:20" />
-                  <String fx:value="00:25" />
-                  <String fx:value="00:30" />
-              </FXCollections>
-          </items>
-          <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ComboBox>
-      <ComboBox fx:id="comboBoxHardWorkingTime" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="19:30" />
-                  <String fx:value="20:00" />
-                  <String fx:value="20:30" />
-                  <String fx:value="21:00" />
-              </FXCollections>
-          </items>
-          <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ComboBox>
-      <Button fx:id="ButtonSaveWorkingTime" mnemonicParsing="false" onAction="#onButtonSaveWorkingTime" prefHeight="25.0" prefWidth="104.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-         <GridPane.margin>
-            <Insets bottom="15.0" left="110.0" />
-         </GridPane.margin>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Button>
-   </children>
-   <cursor>
-      <Cursor fx:constant="NONE" />
-   </cursor>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          nodeOrientation="LEFT_TO_RIGHT" prefHeight="322.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/8.0.171"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="by.stormnet.projectjavafx.controllers.SetWorkingTimeController">
+    <columnConstraints>
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="270.0"/>
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="479.0" minWidth="10.0" prefWidth="127.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="82.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="207.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="207.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <TextField editable="false" focusTraversable="false" text="Окончание рабочего дня :" GridPane.rowIndex="1"
+               GridPane.valignment="BASELINE">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField editable="false" focusTraversable="false" text="Окончание обеда :" GridPane.rowIndex="3"
+               GridPane.valignment="BASELINE">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField editable="false" focusTraversable="false" text="Контролируемый интервал времени :" GridPane.rowIndex="4"
+               GridPane.valignment="BASELINE">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField editable="false" focusTraversable="false" text="Время переработки :" GridPane.rowIndex="5"
+               GridPane.valignment="BASELINE">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField editable="false" focusTraversable="false" text="Начало рабочего дня :" GridPane.valignment="BASELINE">
+        <opaqueInsets>
+          <Insets/>
+        </opaqueInsets>
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0" top="8.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField editable="false" focusTraversable="false" text="Начало обеда :" GridPane.rowIndex="2"
+               GridPane.valignment="BASELINE">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </TextField>
+    <ComboBox fx:id="comboBoxStartWorkingDay" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0"
+              GridPane.columnIndex="1" GridPane.valignment="BASELINE">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="07:00"/>
+                <String fx:value="07:30"/>
+                <String fx:value="08:00"/>
+                <String fx:value="08:30"/>
+                <String fx:value="09:00"/>
+                <String fx:value="09:30"/>
+                <String fx:value="10:00"/>
+            </FXCollections>
+        </items>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </ComboBox>
+    <ComboBox fx:id="comboBoxEndWorkingDay" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0"
+              GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="16:00"/>
+                <String fx:value="16:30"/>
+                <String fx:value="17:00"/>
+                <String fx:value="17:30"/>
+                <String fx:value="18:00"/>
+                <String fx:value="18:30"/>
+                <String fx:value="19:00"/>
+            </FXCollections>
+        </items>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </ComboBox>
+    <ComboBox fx:id="comboBoxStartLunch" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0"
+              GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="13:00"/>
+                <String fx:value="13:30"/>
+            </FXCollections>
+        </items>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </ComboBox>
+    <ComboBox fx:id="comboBoxEndLunch" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0"
+              GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BASELINE">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="14:00"/>
+                <String fx:value="14:30"/>
+            </FXCollections>
+        </items>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </ComboBox>
+    <ComboBox fx:id="comboBoxInterval" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0"
+              GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="00:05"/>
+                <String fx:value="00:10"/>
+                <String fx:value="00:15"/>
+                <String fx:value="00:20"/>
+                <String fx:value="00:25"/>
+                <String fx:value="00:30"/>
+            </FXCollections>
+        </items>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </ComboBox>
+    <ComboBox fx:id="comboBoxHardWorkingTime" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="80.0"
+              GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="19:30"/>
+                <String fx:value="20:00"/>
+                <String fx:value="20:30"/>
+                <String fx:value="21:00"/>
+            </FXCollections>
+        </items>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </ComboBox>
+    <Button fx:id="buttonSaveWorkingTime" mnemonicParsing="false" onAction="#onButtonSaveWorkingTime" prefHeight="25.0"
+            prefWidth="104.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+        <GridPane.margin>
+          <Insets bottom="15.0" left="110.0"/>
+        </GridPane.margin>
+        <cursor>
+          <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+    </Button>
 </GridPane>

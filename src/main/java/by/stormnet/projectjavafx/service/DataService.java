@@ -1,5 +1,7 @@
-package by.stormnet.projectjavafx;
+package by.stormnet.projectjavafx.service;
 
+import by.stormnet.projectjavafx.models.Record;
+import by.stormnet.projectjavafx.models.WorkingTime;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;

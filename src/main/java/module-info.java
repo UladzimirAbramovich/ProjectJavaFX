@@ -15,4 +15,10 @@ module by.stormnet.projectjavafx {
 
     opens by.stormnet.projectjavafx to javafx.fxml;
     exports by.stormnet.projectjavafx;
+    exports by.stormnet.projectjavafx.models;
+    opens by.stormnet.projectjavafx.models to javafx.fxml;
+    exports by.stormnet.projectjavafx.service;
+    opens by.stormnet.projectjavafx.service to javafx.fxml;
+    exports by.stormnet.projectjavafx.controllers;
+    opens by.stormnet.projectjavafx.controllers to javafx.fxml;
 }

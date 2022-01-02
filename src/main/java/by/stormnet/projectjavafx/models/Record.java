@@ -1,4 +1,4 @@
-package by.stormnet.projectjavafx;
+package by.stormnet.projectjavafx.models;
 
 public class Record<D,T> {
     private String worker;

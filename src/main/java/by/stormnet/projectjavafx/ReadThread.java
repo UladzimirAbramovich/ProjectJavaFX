@@ -8,12 +8,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
+import by.stormnet.projectjavafx.models.Record;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
 
-import static by.stormnet.projectjavafx.MainController.recordTitle;
-import static by.stormnet.projectjavafx.MainController.inRecordsList;
+import static by.stormnet.projectjavafx.controllers.MainController.recordTitle;
+import static by.stormnet.projectjavafx.controllers.MainController.inRecordsList;
 
 
 public class ReadThread implements Runnable{
