@@ -196,7 +196,7 @@ public class DataService {
     }
 
     public static WorkingTime<String, String> readWorkingTime() {
-        System.out.println("Начинается чтение файла настроек ...");
+        //System.out.println("Начинается чтение файла настроек ...");
         final String setupFolder = "C:\\ClockHouse\\setup";
         String setupFileName = setupFolder + File.separator + "setup" + ".dat";
         File fileIn = new File(setupFileName);
