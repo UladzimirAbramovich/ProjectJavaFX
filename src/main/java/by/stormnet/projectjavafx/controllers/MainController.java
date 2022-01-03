@@ -21,7 +21,6 @@ import static by.stormnet.projectjavafx.service.DataService.*;
 import static javafx.stage.Modality.WINDOW_MODAL;
 
 public class MainController {
-
     @FXML
     private ComboBox<String> comboBoxType;
     @FXML
@@ -60,6 +59,7 @@ public class MainController {
     public static Record<String,String> recordTitle = new Record<>();
     public static List<Record<LocalDate, LocalTime>> inRecordsList = new ArrayList<>();
     public static List<Record<LocalDate, LocalTime>> outRecordsList = new ArrayList<>();
+    public static String tableTitle;
     private Thread readThread;
 
     @FXML
@@ -168,7 +168,7 @@ public class MainController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            stage.setTitle("Отчет по проходной согласно выбранным параметрам");
+            stage.setTitle(tableTitle);
             stage.setResizable(false);
             stage.setX(350);
             stage.setY(100);

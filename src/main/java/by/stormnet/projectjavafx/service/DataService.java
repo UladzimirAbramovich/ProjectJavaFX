@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static by.stormnet.projectjavafx.controllers.MainController.tableTitle;
+
 public class DataService {
 
     public static boolean isDateWrong(ComboBox<String> comboBoxPeriod, DatePicker datePicker1, DatePicker datePicker2) {
@@ -32,8 +34,7 @@ public class DataService {
                         (datePicker2.getValue() == null || datePicker2.getValue().isAfter(today)));
     }
 
-    public static void writeFile(Record<String, String> recordTitle, List<Record<LocalDate, LocalTime>> outRecordsList) {
-        System.out.println("Начинается запись файла ...");
+    public static void writeFile(String tableTitle, Record<String, String> recordTitle, List<Record<LocalDate, LocalTime>> outRecordsList) {
         final String outReportsFolder = "C:\\ClockHouse\\out";
         File fileOutReportsFolder = new File(outReportsFolder);
         boolean newFile = true;
@@ -44,31 +45,38 @@ public class DataService {
             System.out.println("Ошибка при записи Excel файла");
             return;
         }
-        DateTimeFormatter dtfDateTime = DateTimeFormatter.ofPattern("ddMMyy HH-mm-ss ");
+        DateTimeFormatter dtfDateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss ");
         String outReportFileName = outReportsFolder + File.separator + "ClockHouseOut " +
-                                    dtfDateTime.format(LocalDateTime.now()) + ".xlsx";
+                                   dtfDateTime.format(LocalDateTime.now()) + ".xlsx";
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Отчет по проходной");
         sheet.setDefaultColumnWidth(15);
         sheet.setColumnWidth(3, 10000);
         int rowNum = 0;
         Row row = sheet.createRow(rowNum);
+        row.createCell(0).setCellValue(tableTitle);
+        XSSFCellStyle styleLeft = workbook.createCellStyle();
+        styleLeft.setVerticalAlignment(VerticalAlignment.CENTER);
+        styleLeft.setAlignment(HorizontalAlignment.LEFT);
+        XSSFFont font = workbook.createFont();
+        font.setFontName("Calibri");
+        font.setFontHeightInPoints((short) 11);
+        font.setBold(true);
+        styleLeft.setFont(font);
+        row.getCell(0).setCellStyle(styleLeft);
+        rowNum += 2;
+        row = sheet.createRow(rowNum);
         row.createCell(0).setCellValue(recordTitle.getWorker());
         row.createCell(1).setCellValue(recordTitle.getDate());
         row.createCell(2).setCellValue(recordTitle.getTime());
         row.createCell(3).setCellValue(recordTitle.getDepartment());
         row.createCell(4).setCellValue(recordTitle.getEvent());
-
-        XSSFCellStyle style = workbook.createCellStyle();
-        style.setVerticalAlignment(VerticalAlignment.CENTER);
-        style.setAlignment(HorizontalAlignment.CENTER);
-        XSSFFont font = workbook.createFont();
-        font.setFontName("Calibri");
-        font.setFontHeightInPoints((short) 11);
-        font.setBold(true);
-        style.setFont(font);
+        XSSFCellStyle styleCenter = workbook.createCellStyle();
+        styleCenter.setVerticalAlignment(VerticalAlignment.CENTER);
+        styleCenter.setAlignment(HorizontalAlignment.CENTER);
+        styleCenter.setFont(font);
         for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
-            row.getCell(i).setCellStyle(style);
+            row.getCell(i).setCellStyle(styleCenter);
         }
         DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -90,7 +98,7 @@ public class DataService {
         if (noErrorWrite) {
             System.out.println("Excel файл успешно создан!");
         } else {
-            System.out.println("Ошибка при записи Excel файла");
+            System.out.println("Ошибка при записи Excel файла.");
         }
     }
 
@@ -118,6 +126,9 @@ public class DataService {
             dateStart = datePicker2.getValue();
             dateEnd = datePicker1.getValue();
         }
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        tableTitle = "Отчет по проходной ";
+        tableTitle += dateStart.isEqual(dateEnd)? dtfDate.format(dateStart) : dtfDate.format(dateStart) + "-" + dtfDate.format(dateEnd);
         List<Record<LocalDate, LocalTime>> checkTimeRecordsList = inRecordsList.stream()
                 .filter(inRecord -> (inRecord.getDate().isAfter(dateStart) || inRecord.getDate().isEqual(dateStart)) &&
                         (inRecord.getDate().isBefore(dateEnd) || inRecord.getDate().isEqual(dateEnd)))
@@ -141,18 +152,22 @@ public class DataService {
                             (inRecord.getEvent().equals("Выход") &&
                                     inRecord.getTime().isAfter(workingLocalTime.getHardWorkingTime())))
                     .collect(Collectors.toList());
+            tableTitle += " Аналитика ";
+        } else {
+            tableTitle += " Общий ";
         }
         if (!comboBoxDepartment.isDisable()) {
-            System.out.println(comboBoxDepartment.getValue());
             checkTimeRecordsList = checkTimeRecordsList.stream()
                     .filter(inRecord -> inRecord.getDepartment().equals(comboBoxDepartment.getValue()))
                     .collect(Collectors.toList());
+            tableTitle += " - " + comboBoxDepartment.getValue();
         }
         if (!comboBoxWorker.isDisable()) {
             System.out.println(comboBoxWorker.getValue());
             checkTimeRecordsList = checkTimeRecordsList.stream()
                     .filter(inRecord -> inRecord.getWorker().equals(comboBoxWorker.getValue()))
                     .collect(Collectors.toList());
+            tableTitle += " - " + comboBoxWorker.getValue();
         }
         return checkTimeRecordsList;
     }

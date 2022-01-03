@@ -15,8 +15,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static by.stormnet.projectjavafx.controllers.MainController.outRecordsList;
-import static by.stormnet.projectjavafx.controllers.MainController.recordTitle;
+import static by.stormnet.projectjavafx.controllers.MainController.*;
 import static by.stormnet.projectjavafx.service.DataService.writeFile;
 
 public class TableController {
@@ -63,7 +62,7 @@ public class TableController {
     }
     @FXML
     private void onWriteExcelFile() {
-        writeFile(recordTitle, outRecordsList);
+        writeFile(tableTitle, recordTitle, outRecordsList);
         Stage stage = (Stage) buttonWriteExcelFile.getScene().getWindow();
         stage.close();
     }
