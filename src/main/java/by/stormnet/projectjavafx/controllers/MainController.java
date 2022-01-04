@@ -125,7 +125,7 @@ public class MainController {
     }
 
     @FXML
-    protected void onSetWorkingTime(Event event) {
+    private void onSetWorkingTime(Event event) {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader((ClockHouse.class.getResource("SetWorkingTime.fxml")));
         try {
@@ -153,10 +153,10 @@ public class MainController {
     };
 
     @FXML
-    protected void onWriteFile(Event event) {
-        if (isDateWrong(comboBoxPeriod, datePicker1, datePicker2)) {
+    private void onWriteFile(Event event) {
+        if(isDateWrong(comboBoxPeriod, datePicker1, datePicker2)) {
             error.alert("\tНеправильно указана дата отчета");
-        } else if (readThread.isAlive()) {
+        } else if(readThread.isAlive()) {
                 error.alert("\tПодождите загрузки данных");
         } else {
             outRecordsList = makeOutRecordsList(inRecordsList, workingTime, comboBoxType, comboBoxDepartment,
@@ -180,4 +180,3 @@ public class MainController {
         }
     }
 }
-

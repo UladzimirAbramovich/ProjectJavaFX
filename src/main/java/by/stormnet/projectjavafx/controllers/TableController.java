@@ -9,19 +9,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import static by.stormnet.projectjavafx.controllers.MainController.*;
 import static by.stormnet.projectjavafx.service.DataService.writeFile;
 
 public class TableController {
-
-    private final ObservableList<Record<String,String>> recordObservableList = FXCollections.observableArrayList();
-
     @FXML
     private TableView<Record<String,String>> table;
     @FXML
@@ -36,6 +31,8 @@ public class TableController {
     private TableColumn<Record<String,String>, String> event;
     @FXML
     private Button buttonWriteExcelFile;
+
+    private final ObservableList<Record<String,String>> recordObservableList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {

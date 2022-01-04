@@ -46,9 +46,4 @@ public class Record<D,T> {
     public void setEvent(String event) {
         this.event = event;
     }
-
-    @Override
-    public String toString() {
-        return worker + " " + date + " " + time + " " + department + " " + event;
-    }
 }

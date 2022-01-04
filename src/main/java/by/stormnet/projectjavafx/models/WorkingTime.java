@@ -3,9 +3,7 @@ package by.stormnet.projectjavafx.models;
 import java.io.Serializable;
 
 public class WorkingTime <T,V> implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     private T startWorkingDay;
     private T endWorkingDay;
     private T startLunch;
@@ -68,17 +66,5 @@ public class WorkingTime <T,V> implements Serializable {
 
     public void setHardWorkingTime(T hardWorkingTime) {
         this.hardWorkingTime = hardWorkingTime;
-    }
-
-    @Override
-    public String toString() {
-        return "WorkingTime{" +
-                "startWorkingDay=" + startWorkingDay +
-                ", endWorkingDay=" + endWorkingDay +
-                ", startLunch=" + startLunch +
-                ", endLunch=" + endLunch +
-                ", interval=" + interval +
-                ", hardWorkingTime=" + hardWorkingTime +
-                '}';
     }
 }

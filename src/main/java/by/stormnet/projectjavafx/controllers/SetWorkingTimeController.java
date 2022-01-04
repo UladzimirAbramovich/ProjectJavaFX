@@ -5,18 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-
 import static by.stormnet.projectjavafx.controllers.MainController.workingTime;
 import static by.stormnet.projectjavafx.service.DataService.*;
 
 public class SetWorkingTimeController {
-
-    private MainController mainController;
-
-    public void setParent (MainController mainController){
-        this.mainController = mainController;
-    }
-
     @FXML
     private ComboBox<String> comboBoxStartWorkingDay;
     @FXML
@@ -31,6 +23,12 @@ public class SetWorkingTimeController {
     private ComboBox<String> comboBoxHardWorkingTime;
     @FXML
     private Button buttonSaveWorkingTime;
+
+    private MainController mainController;
+
+    public void setParent (MainController mainController){
+        this.mainController = mainController;
+    }
 
     @FXML
     private void onButtonSaveWorkingTime() {
