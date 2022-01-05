@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Iterator;
 import by.stormnet.projectjavafx.models.Record;
 import org.apache.poi.ss.usermodel.Cell;
@@ -48,7 +49,7 @@ public class ReadThread implements Runnable {
                     inRecord.setEvent(cells.next().getStringCellValue());
                     inRecordsList.add(inRecord);
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 errorReadThread = "Ошибка при чтении файла данных.";
                 System.out.println(errorReadThread);
             }
