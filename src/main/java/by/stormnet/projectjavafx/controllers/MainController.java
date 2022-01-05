@@ -162,6 +162,7 @@ public class MainController {
             error.alert("\tПодождите загрузки данных");
         } else if(errorReadThread != null) {
             error.alert("\t" + errorReadThread);
+            System.exit(0);
         } else {
             outRecordsList = makeOutRecordsList(inRecordsList, workingTime, comboBoxType, comboBoxDepartment,
                                                 comboBoxWorker, comboBoxPeriod, datePicker1,datePicker2);
