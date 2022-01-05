@@ -60,14 +60,16 @@ public class MainController {
     public static List<Record<LocalDate, LocalTime>> inRecordsList = new ArrayList<>();
     public static List<Record<LocalDate, LocalTime>> outRecordsList = new ArrayList<>();
     public static String tableTitle;
+    public static String errorReadThread;
     private Thread readThread;
+
 
     @FXML
     private void initialize() {
         readThread = new Thread(new ReadThread());
         readThread.start();
         WorkingTime<String,String> temp = readWorkingTime();
-        if(temp != null){
+        if(temp != null) {
             workingTime = temp;
         }
         setLabelWorkingTime();
@@ -84,9 +86,9 @@ public class MainController {
 
     @FXML
     private void onComboBoxDepartmentOrWorker() {
-        if (comboBoxDepartmentOrWorker.getValue().equals("В рамках структурного подразделения")) {
-            comboBoxDepartment.setDisable(false);
-            comboBoxWorker.setDisable(true);
+        if(comboBoxDepartmentOrWorker.getValue().equals("В рамках структурного подразделения")) {
+           comboBoxDepartment.setDisable(false);
+           comboBoxWorker.setDisable(true);
         } else {
             comboBoxDepartment.setDisable(true);
             comboBoxWorker.setDisable(false);
@@ -95,7 +97,7 @@ public class MainController {
 
     @FXML
     private void onComboBoxPeriod() {
-        if (comboBoxPeriod.getValue().equals("За период")) {
+        if(comboBoxPeriod.getValue().equals("За период")) {
             labelDatePicker1.setVisible(true);
             labelDatePicker2.setVisible(true);
             datePicker2.setVisible(true);
@@ -108,13 +110,13 @@ public class MainController {
 
     @FXML
     private void onCheckBoxAllCompany() {
-        if (checkBoxAllCompany.isSelected()) {
+        if(checkBoxAllCompany.isSelected()) {
             comboBoxDepartmentOrWorker.setDisable(true);
             comboBoxDepartment.setDisable(true);
             comboBoxWorker.setDisable(true);
         } else {
             comboBoxDepartmentOrWorker.setDisable(false);
-            if (comboBoxDepartmentOrWorker.getValue().equals("В рамках структурного подразделения")) {
+            if(comboBoxDepartmentOrWorker.getValue().equals("В рамках структурного подразделения")) {
                 comboBoxDepartment.setDisable(false);
                 comboBoxWorker.setDisable(true);
             } else {
@@ -157,7 +159,9 @@ public class MainController {
         if(isDateWrong(comboBoxPeriod, datePicker1, datePicker2)) {
             error.alert("\tНеправильно указана дата отчета");
         } else if(readThread.isAlive()) {
-                error.alert("\tПодождите загрузки данных");
+            error.alert("\tПодождите загрузки данных");
+        } else if(errorReadThread != null) {
+            error.alert("\t" + errorReadThread);
         } else {
             outRecordsList = makeOutRecordsList(inRecordsList, workingTime, comboBoxType, comboBoxDepartment,
                                                 comboBoxWorker, comboBoxPeriod, datePicker1,datePicker2);

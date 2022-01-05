@@ -24,30 +24,30 @@ public class DataService {
 
     public static boolean isDateWrong(ComboBox<String> comboBoxPeriod, DatePicker datePicker1, DatePicker datePicker2) {
         LocalDate today = LocalDate.now();
-        if (comboBoxPeriod.getValue().equals("На дату") && (datePicker1.getValue() == null ||
-                datePicker1.getValue().isAfter(today))) {
+        if(comboBoxPeriod.getValue().equals("На дату") && (datePicker1.getValue() == null ||
+           datePicker1.getValue().isAfter(today))) {
             return true;
         } else return (comboBoxPeriod.getValue().equals("За период")) &&
-                ((datePicker1.getValue() == null || datePicker1.getValue().isAfter(today)) &&
-                        (datePicker2.getValue() == null || datePicker2.getValue().isAfter(today)));
+                      ((datePicker1.getValue() == null || datePicker1.getValue().isAfter(today)) &&
+                      (datePicker2.getValue() == null || datePicker2.getValue().isAfter(today)));
     }
 
     public static List<Record<LocalDate, LocalTime>> makeOutRecordsList(List<Record<LocalDate, LocalTime>> inRecordsList,
-                                                     WorkingTime<String, String> workingTime, ComboBox<String> comboBoxType,
-                                                     ComboBox<String> comboBoxDepartment, ComboBox<String> comboBoxWorker,
-                                                     ComboBox<String> comboBoxPeriod, DatePicker datePicker1, DatePicker datePicker2){
+                                        WorkingTime<String, String> workingTime, ComboBox<String> comboBoxType,
+                                        ComboBox<String> comboBoxDepartment, ComboBox<String> comboBoxWorker,
+                                        ComboBox<String> comboBoxPeriod, DatePicker datePicker1, DatePicker datePicker2) {
         LocalDate dateStart;
         LocalDate dateEnd;
-        if(comboBoxPeriod.getValue().equals("На дату")){
+        if(comboBoxPeriod.getValue().equals("На дату")) {
             dateStart = datePicker1.getValue();
             dateEnd = dateStart;
-        } else if(datePicker1.getValue() == null){
+        } else if(datePicker1.getValue() == null) {
             dateStart = datePicker2.getValue();
             dateEnd = dateStart;
-        } else if(datePicker2.getValue() == null){
+        } else if(datePicker2.getValue() == null) {
             dateStart = datePicker1.getValue();
             dateEnd = dateStart;
-        } else if(datePicker1.getValue().isBefore(datePicker2.getValue())){
+        } else if(datePicker1.getValue().isBefore(datePicker2.getValue())) {
             dateStart = datePicker1.getValue();
             dateEnd = datePicker2.getValue();
         } else {
@@ -59,40 +59,40 @@ public class DataService {
         tableTitle += dateStart.isEqual(dateEnd)? dtfDate.format(dateStart) : dtfDate.format(dateStart) + "-" + dtfDate.format(dateEnd);
         List<Record<LocalDate, LocalTime>> checkTimeRecordsList = inRecordsList.stream()
                 .filter(inRecord -> (inRecord.getDate().isAfter(dateStart) || inRecord.getDate().isEqual(dateStart)) &&
-                        (inRecord.getDate().isBefore(dateEnd) || inRecord.getDate().isEqual(dateEnd)))
+                       (inRecord.getDate().isBefore(dateEnd) || inRecord.getDate().isEqual(dateEnd)))
                 .collect(Collectors.toList());
-        if(comboBoxType.getValue().equals("Аналитика по опозданиям и переработкам")){
+        if(comboBoxType.getValue().equals("Аналитика по опозданиям и переработкам")) {
             WorkingTime<LocalTime, Integer> workingLocalTime = makeWorkingLocalTime(workingTime);
             checkTimeRecordsList = checkTimeRecordsList.stream()
-                    .filter(inRecord -> (inRecord.getEvent().equals("Вход") &&
-                            inRecord.getTime().isAfter(workingLocalTime.getStartWorkingDay()) &&
-                            inRecord.getTime().isBefore(workingLocalTime.getStartWorkingDay().plusMinutes(workingLocalTime.getInterval()))) ||
-                            (inRecord.getEvent().equals("Выход") &&
-                                    inRecord.getTime().isAfter(workingLocalTime.getStartLunch().minusMinutes(workingLocalTime.getInterval())) &&
-                                    inRecord.getTime().isBefore(workingLocalTime.getStartLunch())) ||
-                            (inRecord.getEvent().equals("Вход") &&
-                                    inRecord.getTime().isAfter(workingLocalTime.getEndLunch()) &&
-                                    inRecord.getTime().isBefore(workingLocalTime.getEndLunch().plusMinutes(workingLocalTime.getInterval()))) ||
-                            (inRecord.getEvent().equals("Выход") &&
-                                    inRecord.getTime().isAfter(workingLocalTime.getEndWorkingDay().minusMinutes(workingLocalTime.getInterval())) &&
-                                    inRecord.getTime().isBefore(workingLocalTime.getEndWorkingDay())) ||
-                            (inRecord.getEvent().equals("Выход") &&
-                                    inRecord.getTime().isAfter(workingLocalTime.getHardWorkingTime())))
-                    .collect(Collectors.toList());
+                .filter(inRecord -> (inRecord.getEvent().equals("Вход") &&
+                        inRecord.getTime().isAfter(workingLocalTime.getStartWorkingDay()) &&
+                        inRecord.getTime().isBefore(workingLocalTime.getStartWorkingDay().plusMinutes(workingLocalTime.getInterval()))) ||
+                        (inRecord.getEvent().equals("Выход") &&
+                        inRecord.getTime().isAfter(workingLocalTime.getStartLunch().minusMinutes(workingLocalTime.getInterval())) &&
+                        inRecord.getTime().isBefore(workingLocalTime.getStartLunch())) ||
+                        (inRecord.getEvent().equals("Вход") &&
+                        inRecord.getTime().isAfter(workingLocalTime.getEndLunch()) &&
+                        inRecord.getTime().isBefore(workingLocalTime.getEndLunch().plusMinutes(workingLocalTime.getInterval()))) ||
+                        (inRecord.getEvent().equals("Выход") &&
+                        inRecord.getTime().isAfter(workingLocalTime.getEndWorkingDay().minusMinutes(workingLocalTime.getInterval())) &&
+                        inRecord.getTime().isBefore(workingLocalTime.getEndWorkingDay())) ||
+                        (inRecord.getEvent().equals("Выход") &&
+                        inRecord.getTime().isAfter(workingLocalTime.getHardWorkingTime())))
+                .collect(Collectors.toList());
             tableTitle += " Аналитика ";
         } else {
             tableTitle += " Общий ";
         }
-        if(!comboBoxDepartment.isDisable()){
+        if(!comboBoxDepartment.isDisable()) {
             checkTimeRecordsList = checkTimeRecordsList.stream()
-                    .filter(inRecord -> inRecord.getDepartment().equals(comboBoxDepartment.getValue()))
-                    .collect(Collectors.toList());
+                .filter(inRecord -> inRecord.getDepartment().equals(comboBoxDepartment.getValue()))
+                .collect(Collectors.toList());
             tableTitle += " - " + comboBoxDepartment.getValue();
         }
-        if(!comboBoxWorker.isDisable()){
+        if(!comboBoxWorker.isDisable()) {
             checkTimeRecordsList = checkTimeRecordsList.stream()
-                    .filter(inRecord -> inRecord.getWorker().equals(comboBoxWorker.getValue()))
-                    .collect(Collectors.toList());
+                .filter(inRecord -> inRecord.getWorker().equals(comboBoxWorker.getValue()))
+                .collect(Collectors.toList());
             tableTitle += " - " + comboBoxWorker.getValue();
         }
         return checkTimeRecordsList;
@@ -102,10 +102,10 @@ public class DataService {
         final String outReportsFolder = "C:\\ClockHouse\\out";
         File fileOutReportsFolder = new File(outReportsFolder);
         boolean newFile = true;
-        if(!fileOutReportsFolder.exists()){
+        if(!fileOutReportsFolder.exists()) {
             newFile = fileOutReportsFolder.mkdir();
         }
-        if(!newFile){
+        if(!newFile) {
             System.out.println("Ошибка при записи Excel файла.");
             return;
         }
@@ -140,12 +140,12 @@ public class DataService {
         styleCenter.setVerticalAlignment(VerticalAlignment.CENTER);
         styleCenter.setAlignment(HorizontalAlignment.CENTER);
         styleCenter.setFont(font);
-        for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+        for(int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
             row.getCell(i).setCellStyle(styleCenter);
         }
         DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
-        for (Record<LocalDate, LocalTime> outRecord : outRecordsList) {
+        for(Record<LocalDate, LocalTime> outRecord : outRecordsList) {
             row = sheet.createRow(++rowNum);
             row.createCell(0).setCellValue(outRecord.getWorker());
             row.createCell(1).setCellValue(dtfDate.format(outRecord.getDate()));
@@ -159,7 +159,7 @@ public class DataService {
         } catch (IOException e) {
             noErrorWrite = false;
         }
-        if (noErrorWrite) {
+        if(noErrorWrite) {
             System.out.println("Excel файл успешно создан.");
         } else {
             System.out.println("Ошибка при записи Excel файла.");
@@ -169,23 +169,22 @@ public class DataService {
     public static WorkingTime<LocalTime, Integer> makeWorkingLocalTime(WorkingTime<String, String> workingTime) {
         DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm");
         return new WorkingTime<>(
-                LocalTime.parse(workingTime.getStartWorkingDay(), dtfTime),
-                LocalTime.parse(workingTime.getEndWorkingDay(), dtfTime),
-                LocalTime.parse(workingTime.getStartLunch(), dtfTime),
-                LocalTime.parse(workingTime.getEndLunch(), dtfTime),
-                Integer.valueOf(workingTime.getInterval().substring(3)),
-                LocalTime.parse(workingTime.getHardWorkingTime(), dtfTime));
+            LocalTime.parse(workingTime.getStartWorkingDay(), dtfTime),
+            LocalTime.parse(workingTime.getEndWorkingDay(), dtfTime),
+            LocalTime.parse(workingTime.getStartLunch(), dtfTime),
+            LocalTime.parse(workingTime.getEndLunch(), dtfTime),
+            Integer.valueOf(workingTime.getInterval().substring(3)),
+            LocalTime.parse(workingTime.getHardWorkingTime(), dtfTime));
     }
 
     public static void writeWorkingTime(WorkingTime<String, String> workingTime) {
-        System.out.println("Начинается запись файла настроек ...");
         final String setupFolder = "C:\\ClockHouse\\setup";
         File fileSetupFolder = new File(setupFolder);
         boolean newFile = true;
-        if(!fileSetupFolder.exists()){
+        if(!fileSetupFolder.exists()) {
             newFile = fileSetupFolder.mkdir();
         }
-        if(!newFile){
+        if(!newFile) {
             System.out.println("Ошибка при записи файла настроек.");
             return;
         }
@@ -194,7 +193,6 @@ public class DataService {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(setupFileName))) {
             objectOutputStream.writeObject(workingTime);
         } catch (IOException e) {
-            e.printStackTrace();
             noErrorWrite = false;
         }
         if (noErrorWrite) {
@@ -209,16 +207,16 @@ public class DataService {
         String setupFileName = setupFolder + File.separator + "setup" + ".dat";
         File fileIn = new File(setupFileName);
         if (!fileIn.exists()) {
-            System.out.println("Ошибка: Недоступен файл настроек.");
+            System.out.println("Недоступен файл настроек.");
             return null;
         }
-        WorkingTime<String, String> workingTime; // = null;
+        WorkingTime<String, String> workingTime;
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(setupFileName))) {
             workingTime = (WorkingTime<String, String>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             workingTime = null;
         }
-        if(workingTime != null){
+        if(workingTime != null) {
             System.out.println("Файл настроек успешно прочитан.");
         } else {
             System.out.println("Ошибка при чтении файла настроек.");
