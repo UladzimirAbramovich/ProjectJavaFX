@@ -21,4 +21,6 @@ module by.stormnet.projectjavafx {
     opens by.stormnet.projectjavafx.service to javafx.fxml;
     exports by.stormnet.projectjavafx.controllers;
     opens by.stormnet.projectjavafx.controllers to javafx.fxml;
+    exports by.stormnet.projectjavafx.threads;
+    opens by.stormnet.projectjavafx.threads to javafx.fxml;
 }

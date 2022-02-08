@@ -1,4 +1,4 @@
-package by.stormnet.projectjavafx;
+package by.stormnet.projectjavafx.threads;
 
 import java.io.File;
 import java.io.FileInputStream;

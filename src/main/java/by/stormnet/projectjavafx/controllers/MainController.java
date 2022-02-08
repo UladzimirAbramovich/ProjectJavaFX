@@ -1,7 +1,7 @@
 package by.stormnet.projectjavafx.controllers;
 
 import by.stormnet.projectjavafx.ClockHouse;
-import by.stormnet.projectjavafx.ReadThread;
+import by.stormnet.projectjavafx.threads.ReadThread;
 import by.stormnet.projectjavafx.models.Record;
 import by.stormnet.projectjavafx.models.WorkingTime;
 import by.stormnet.projectjavafx.service.ErrorAlert;
